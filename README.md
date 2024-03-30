@@ -1,7 +1,5 @@
 # Social Network Project
 
-This microservice is for Social Network Project
-
 ## Features
 
 - Swagger documentation
