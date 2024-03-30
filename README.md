@@ -38,13 +38,18 @@ python manage.py runserver
 Visit http://127.0.0.1:8000/swagger to access the API with Documentation
 ```
 
-#### With Docker 
+#### With Docker or Docker compose
 
-1. You can provide any name instead of auth-service
+1. You can provide any name instead of social_network
 ```bash
 docker build -t social_network -f Dockerfile.local . 
 docker run -p 8000:8000 social_network
+
+            or 
+
+docker-compose up --build 
 ```
+
 
 2. Visit below URL to see the swagger documentation
 ```bash
