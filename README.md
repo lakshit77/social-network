@@ -65,13 +65,29 @@ https://elements.getpostman.com/redirect?entityId=32318803-6382ae01-5ea6-4d0e-a8
 ```
 
 
-1. Authentication
+1. **Authentication**
 - You can use `/auth/signup/` api to register the user
 - Use `/auth/login/` api to login the user
 
-Note:
+**Note:**
     - After using above api you will get the `token` use this and pass in header to access other api's
     - In postman collection this will be done automatic
     - In swagger in there is Authorize section you can pass it in this format `Token <token>`
 
-2. 
+2. **Send Friend Request**
+- Use `/friend-requests/create/` api to send friend request to particular `user_id`
+
+3. **Delete Friend Request**
+- Use `/friend-requests/delete/<id>` api to delete friend request to particular `friend_request_id`
+
+4. **Check Pending Friend Request**
+- Use `/friend-requests/pending/` api to check for all the pending friend request
+
+5. **Respond to Friend Request**
+- Use `/friend-requests/respond/<id>` api to respond to all the friend request you might have got
+
+6. **Get all your Friend**
+- Use `/list_my_friends/` api to get all your friends
+
+7. **Search for Friend**
+- Use `/search_friends/` api to search for friends
