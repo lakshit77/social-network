@@ -20,7 +20,7 @@ This microservice is for Social Network Project
 ```bash
 git clone https://github.com/lakshit77/social-network.git .
 ```
-2. Create Virtual Enviornment
+2. Create Virtual Enviornment (optional but recommended)
 3. Install dependency inside Virtual Enviornment from requirements.txt
 ```bash
 pip install -r requirements.txt
