@@ -58,3 +58,11 @@ Visit http://localhost:8000/swagger to access the API with Documentation
 
 ![alt text](images/swagger_ss.png)
 
+
+#### API Usage Understanding
+
+- Postman Collection 
+```
+https://elements.getpostman.com/redirect?entityId=32318803-6382ae01-5ea6-4d0e-a8f9-e6bd1d60cd32&entityType=collection
+```
+
