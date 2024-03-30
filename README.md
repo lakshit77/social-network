@@ -1,4 +1,4 @@
-# User Service
+# Social Network Project
 
 This microservice is for Social Network Project
 
@@ -42,8 +42,8 @@ Visit http://127.0.0.1:8000/swagger to access the API with Documentation
 
 1. You can provide any name instead of auth-service
 ```bash
-docker build -t user-service .
-docker run -p 8000:8000 user-service
+docker build -t social_network -f Dockerfile.local . 
+docker run -p 8000:8000 social_network
 ```
 
 2. Visit below URL to see the swagger documentation

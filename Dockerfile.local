@@ -20,11 +20,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the project files into the container
 COPY . /app/
 
-# Install django_extensions
-# RUN pip install django-extensions
-
-# Run Collectstatic
-RUN python manage.py collectstatic
 # Run migrations
 RUN python manage.py migrate
 
