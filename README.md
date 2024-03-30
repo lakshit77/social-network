@@ -64,3 +64,14 @@ Visit http://localhost:8000/swagger to access the API with Documentation
 https://elements.getpostman.com/redirect?entityId=32318803-6382ae01-5ea6-4d0e-a8f9-e6bd1d60cd32&entityType=collection
 ```
 
+
+1. Authentication
+- You can use `/auth/signup/` api to register the user
+- Use `/auth/login/` api to login the user
+
+Note:
+    - After using above api you will get the `token` use this and pass in header to access other api's
+    - In postman collection this will be done automatic
+    - In swagger in there is Authorize section you can pass it in this format `Token <token>`
+
+2. 
