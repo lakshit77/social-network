@@ -24,7 +24,7 @@ from rest_framework.authentication import TokenAuthentication
 # Create schema view for User Service API
 schema_view = get_schema_view(
     openapi.Info(
-        title="Your Project API",
+        title="Social Network API",
         default_version='v1',
         description="API documentation for your project",
     ),

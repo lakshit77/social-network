@@ -6,7 +6,7 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from django.http.response import JsonResponse
 
-from social_network_app.status_code import success, generic_error_2, generic_error_1
+from social_network_app.status_code import success, generic_error_2, generic_error_1, invalid_credential
 from social_network_app.helpers import get_response, CustomExceptionHandler
 
 # Define manual request schema for the login endpoint
@@ -43,7 +43,7 @@ class LoginView(views.APIView):
                 token, created = Token.objects.get_or_create(user=user)
                 response_obj = get_response(success, {"token": token.key})
             else:
-                return JsonResponse(get_response(generic_error_2, {"error": "Invalid Credentials"}))
+                return JsonResponse(get_response(invalid_credential))
                 
         except CustomExceptionHandler as e:
             response_obj = get_response(eval(str(e)))

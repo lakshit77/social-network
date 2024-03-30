@@ -1,5 +1,4 @@
 from rest_framework import status, permissions
-from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.views import APIView
 from drf_yasg.utils import swagger_auto_schema
@@ -9,6 +8,8 @@ from social_network_app.serializers import FriendRequestSerializer, FriendReques
 from social_network_app.helpers import BaseCustomModelViewSet, get_response
 from social_network_app.status_code import success
 from django.http.response import JsonResponse
+from social_network_app.utils import is_rate_limited
+from social_network_app.status_code import rate_limit_for_user, invalid_user_action, generic_error_3
 
 class FriendRequestViewSet(BaseCustomModelViewSet):
     queryset = FriendRequest.objects.all()
@@ -17,26 +18,14 @@ class FriendRequestViewSet(BaseCustomModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(from_user=self.request.user)  # Automatically set the sender to the current user
-
     
-    @action(methods=['post'], detail=False, url_path='your-custom-path')
-    def custom_create(self, request, *args, **kwargs):
-        if isinstance(request.data, list):
-            serializer = self.get_serializer(data=request.data, many=True)
-        else:
-            serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return self.custom_response(serializer)
-
-    @action(methods=['delete'], detail=False, url_path='your-custom-delete-path')
-    def custom_destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        self.perform_destroy(instance)
-        res_obj = get_response(success)
-        return Response(res_obj)
-
+    @action(methods=['post'], detail=False)
+    def create(self, request, *args, **kwargs):
+        if is_rate_limited(request.user.id):
+            res_obj = get_response(rate_limit_for_user)
+            return JsonResponse(res_obj, status=429)  # 429 Too Many Requests
+        
+        return super(FriendRequestViewSet, self).create(request, *args, **kwargs)
 
 class FriendRequestResponseView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -52,11 +41,11 @@ class FriendRequestResponseView(APIView):
         response = request.data.get('status')
 
         if friend_request.to_user != request.user:
-            res_obj = get_response(success, {'error': 'You do not have permission to update this friend request.'})
+            res_obj = get_response(invalid_user_action)
             return JsonResponse(res_obj, status=status.HTTP_403_FORBIDDEN)
 
         if response not in ['accepted', 'rejected']:
-            res_obj = get_response(success, {'error': 'Invalid response.'})
+            res_obj = get_response(generic_error_3)
             return JsonResponse(res_obj, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = FriendRequestResponseSerializer(instance=friend_request, data={'status': response}, partial=True)
